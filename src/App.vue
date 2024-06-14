@@ -17,7 +17,33 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header> -->
 
-
+  <div class="mx-8 my-4">
+    <nav class="flex justify-between items-center">
+      <img
+        alt="Vue logo"
+        class="w-[5rem] rotate-180"
+        src="@/assets/logo.svg"
+        width="125"
+        height="125"
+      />
+      <div>
+        <ul class="flex gap-10 items-center justify-center">
+          <li class="bg-[#41b883] px-2 py-1 rounded-lg text-white hover:bg-[#34495e]">
+            <RouterLink to="/">Home</RouterLink>
+          </li>
+          <li class="bg-[#41b883] px-2 py-1 rounded-lg text-white hover:bg-[#34495e]">
+            <RouterLink to="/login">LogIn</RouterLink>
+          </li>
+          <li class="bg-[#41b883] px-2 py-1 rounded-lg text-white hover:bg-[#34495e]">
+            <RouterLink to="/signup">SignUp</RouterLink>
+          </li>
+          <li class="bg-[#41b883] px-2 py-1 rounded-lg text-white hover:bg-[#34495e]">
+            <RouterLink to="/about">About</RouterLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
   <RouterView />
 </template>
