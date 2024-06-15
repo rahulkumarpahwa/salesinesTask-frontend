@@ -9,7 +9,7 @@ export default {
     async onLogin() {
       // loading = true;
       // disabledButton = true;
-      const response = await axios.post(`http:localhost:3000/api/users/login`, {
+      const response = await axios.post(`/api/users/login`, {
         email : this.email,
         password : this.password,
       })
