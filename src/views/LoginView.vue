@@ -4,17 +4,20 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 export default {
-  name : "LoginView" ,
+  name: 'LoginView',
   methods: {
     async onLogin() {
-      // loading = true;
-      // disabledButton = true;
-      const response = await axios.post(`/api/users/login`, {
-        email : this.email,
-        password : this.password,
-      })
-      console.log('Login Success', response.data)
-      toast.success('User LoggedIn Successfully!!')
+      try {
+        const response = await axios.post(`/api/users/login`, {
+          email: this.email,
+          password: this.password
+        })
+        console.log('Login Success', response.data)
+        toast.success('User LoggedIn Successfully!!')
+      } catch (error) {
+        console.log(error.message)
+        toast.error(error.message)
+      }
     }
   }
 }
@@ -40,7 +43,7 @@ export default {
       class="border border-black rounded-xs px-12 py-1 my-2 hover:text-white hover:bg-black"
       v-on:click="onLogin()"
     >
-      <!-- {{ disabledButton ? 'No Log In' : 'Log In' }} --> Button
+      {{ disabledButton ? 'No Log In' : 'Log In' }}
     </button>
     <RouterLink
       to="/signup"
