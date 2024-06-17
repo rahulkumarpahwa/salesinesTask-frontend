@@ -1,7 +1,8 @@
 <script>
 import { RouterLink } from 'vue-router'
 import axios from 'axios'
-import toast, { Toaster } from 'react-hot-toast'
+import { Toaster, toast } from "@steveyuowo/vue-hot-toast";
+import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
 
 export default {
   name: 'SignupView',
@@ -28,6 +29,8 @@ export default {
 
 <template>
   <div className="flex flex-col items-center justify-center h-[20rem] py-2">
+    <h1 class="text-2xl animate-bounce my-4">Task Manager Web App 📝</h1>
+
     <h1 className="my-1">{{ loading ? '🪐Processing' : '🔑 Signup' }}</h1>
     <input
       className="focus:outline-none border border-gray-600 text-black rounded-xs my-2 px-2 py-1"

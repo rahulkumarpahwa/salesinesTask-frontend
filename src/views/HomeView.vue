@@ -1,13 +1,13 @@
 <script setup lang="ts">
 // import TheWelcome from '../components/TheWelcome.vue'
 import { RouterLink } from 'vue-router';
-import { GiRapidshareArrow } from "react-icons/gi";
+// import { GiRapidshareArrow } from "react-icons/gi";
 </script>
 
 <template>
   <main>
     <div class="flex justify-center items-center h-[20rem] flex-col gap-2">
-      <div class="my-3 text-[#41b883] text-2xl"><GiRapidshareArrow />↪ Hover Here </div>
+      <!-- <div class="my-3 text-[#41b883] text-2xl"><GiRapidshareArrow />↪ Hover Here </div> -->
       <img
         alt="Vue logo"
         class="w-[5rem] animate-spin hover:duration-300 hover:scale-150"
