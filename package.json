@@ -13,7 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@steveyuowo/vue-hot-toast": "^1.2.5",
+    "awesome-toast-component": "^2.0.6",
     "axios": "^1.7.2",
     "react-icons": "^5.2.1",
     "vue": "^3.4.21",

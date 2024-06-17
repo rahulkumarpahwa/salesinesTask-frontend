@@ -1,11 +1,7 @@
-<script>
+<script lang="ts">
 import { RouterLink } from 'vue-router'
 import axios from 'axios'
-import { Toaster, toast } from "@steveyuowo/vue-hot-toast";
-import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
-import { ref } from 'vue'
-
-let errorMessage = ref(null)
+import Toast from 'awesome-toast-component'
 
 export default {
   name: 'LoginView',
@@ -16,14 +12,23 @@ export default {
         this.disabledButton = true
         const response = await axios.post(`/api/users/login`, {
           email: this.email,
-          password: this.password,
+          password: this.password
         })
+        new Toast('User LoggedIn Successfully!!', {
+          position: 'top'
+        })
+        if (response.data.message == 'User LoggedIn Successfully!') {
+          this.$router.push('/task')
+        }
         console.log('Login Success', response.data)
-        toast.success('User LoggedIn Successfully!!')
       } catch (error) {
-        errorMessage.value = error.message
         console.log(error.message)
-        toast.error(error.message)
+        new Toast(error.message, {
+          position: 'top'
+        })
+        ;(this.email = ''), (this.password = '')
+        this.loading = false
+        this.disabledButton = false
       }
     }
   },
@@ -37,9 +42,6 @@ export default {
     }
   }
 }
-// created() {
-
-// },
 </script>
 
 <template>
@@ -50,13 +52,13 @@ export default {
       class="focus:outline-none border border-gray-600 text-black rounded-xs my-2 px-2 py-1"
       placeholder="enter email"
       type="text"
-      v-bind:value="email"
+      v-model="email"
     />
     <input
       class="focus:outline-none border border-gray-600 text-black rounded-xs my-2 px-2 py-1"
       placeholder="enter password"
       type="text"
-      :value="password"
+      v-model="password"
     />
     <button
       class="border border-black rounded-xs px-12 py-1 my-2 hover:text-white hover:bg-black"
@@ -69,7 +71,5 @@ export default {
       class="hover:text-white hover:bg-black border border-black p-2 mt-1 rounded-xs"
       >Visit SignUp Page
     </RouterLink>
-    <Toaster />
-    <h4>{{ errorMessage }}</h4>
   </div>
 </template>
