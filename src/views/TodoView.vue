@@ -4,6 +4,7 @@
 import axios from 'axios'
 // import { ref } from 'vue'
 import Toast from 'awesome-toast-component'
+import { onMounted } from 'vue'
 // const checkedNames = ref([])
 
 // v-model="checkedNames"
@@ -36,8 +37,6 @@ export default {
       try {
         const response = await axios.post('/api/todo/showtask')
         this.tasks = response.data.tasks.filter((value) => value.isDone === false)
-        // this.doneTasks = response.data.tasks.filter((value) => value.isDone === true)
-        // console.log(response.data.tasks)
       } catch (error) {
         console.log(error.message)
         new Toast(error.message, {
@@ -76,12 +75,14 @@ export default {
     },
     async createTask() {
       try {
-        const response = await axios.post('/api/todo/createtask', { task: this.taskInput })
-        console.log(response.data)
-        this.taskInput = ''
-        new Toast('New task Created!', {
-          position: 'top'
-        })
+        if (this.taskInput != '') {
+          const response = await axios.post('/api/todo/createtask', { task: this.taskInput })
+          console.log(response.data)
+          this.taskInput = ''
+          new Toast('New task Created!', {
+            position: 'top'
+          })
+        }
       } catch (error) {
         console.log(error.message)
         new Toast(error.message, {
@@ -99,6 +100,11 @@ export default {
     }
   }
 }
+
+onMounted(() => {
+  this.getTasks()
+  this.doneTask()
+})
 </script>
 
 <template>
