@@ -19,13 +19,14 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <div class="mx-8 my-4">
     <nav class="flex justify-between items-center">
+      <RouterLink to="/" >
       <img
         alt="Vue logo"
         class="w-[5rem] rotate-180"
         src="@/assets/logo.svg"
         width="125"
         height="125"
-      />
+      /></RouterLink>
       <div>
         <ul class="flex gap-10 items-center justify-center">
           <li class="bg-[#41b883] px-2 py-1 rounded-lg text-white hover:bg-[#34495e]">

@@ -15,7 +15,6 @@
   "dependencies": {
     "awesome-toast-component": "^2.0.6",
     "axios": "^1.7.2",
-    "react-icons": "^5.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
