@@ -4,7 +4,6 @@
 import axios from 'axios'
 // import { ref } from 'vue'
 import Toast from 'awesome-toast-component'
-import { onMounted } from 'vue'
 // const checkedNames = ref([])
 
 // v-model="checkedNames"
@@ -50,6 +49,8 @@ export default {
         console.log(response.data)
 
         if (response.data) {
+          this.getTasks()
+          this.doneTask()
           new Toast('Task Completed!', {
             position: 'top'
           })
@@ -82,6 +83,26 @@ export default {
           new Toast('New task Created!', {
             position: 'top'
           })
+          this.getTasks()
+          this.doneTask()
+        }
+      } catch (error) {
+        console.log(error.message)
+        new Toast(error.message, {
+          position: 'top'
+        })
+      }
+    },
+    async deleteTask(id) {
+      try {
+        const response = await axios.post('/api/todo/deletetask', { taskId: id })
+        console.log(response.data)
+        if (response.data) {
+          this.getTasks()
+          this.doneTask()
+          new Toast('Task Deleted!', {
+            position: 'top'
+          })
         }
       } catch (error) {
         console.log(error.message)
@@ -100,11 +121,6 @@ export default {
     }
   }
 }
-
-onMounted(() => {
-  this.getTasks()
-  this.doneTask()
-})
 </script>
 
 <template>
@@ -115,6 +131,8 @@ onMounted(() => {
     Logout
   </button>
   <div class="flex items-center justify-center flex-col gap-4">
+    <h2 class="text-2xl font-bold">Create New Tasks</h2>
+
     <input
       type="text"
       v-model="taskInput"
@@ -126,15 +144,16 @@ onMounted(() => {
       v-on:click="
         () => {
           this.createTask()
-          this.getTasks()
         }
       "
     >
       <i class="fa-solid fa-plus"></i> Create New Task
     </button>
-    <hr class="h-px w-72" />
+
     <div>
-      <ul>
+      <ul class="flex items-center justify-center flex-col">
+        <hr class="h-px w-72" />
+        <h2 class="text-2xl font-bold">Pending Tasks</h2>
         <li v-for="value in tasks" :key="value._id" class="bg-neutral-300 my-2 p-2 rounded-md">
           <span class="mr-3"><i class="fa-solid fa-arrow-right"></i></span>
           <input
@@ -144,21 +163,23 @@ onMounted(() => {
             v-on:click="
               () => {
                 this.taskDone(value._id)
-                this.doneTask()
-                this.getTasks()
               }
             "
           />
           <label for="checkbox">{{ value.task }}</label>
+          <button class="ml-2" v-on:click="()=>deleteTask(value._id)"><i class="fa-solid fa-xmark text-red-600 text-xs" ></i></button>
         </li>
       </ul>
 
       <ul class="flex items-center justify-center flex-col">
         <hr class="h-px w-72" />
+        <h2 class="text-2xl font-bold">Completed Tasks</h2>
+
         <li v-for="value in doneTasks" :key="value.id" class="bg-neutral-300 my-2 p-2 rounded-md">
           <span class="mr-3"><i class="fa-solid fa-arrow-right"></i></span>
           <input type="checkbox" id="checkbox" checked class="mr-2" />
           <label for="checkbox" class="line-through">{{ value.task }}</label>
+          <button class="ml-2" v-on:click="()=>deleteTask(value._id)"><i class="fa-solid fa-xmark text-red-600 text-xs"></i></button>
         </li>
       </ul>
     </div>
